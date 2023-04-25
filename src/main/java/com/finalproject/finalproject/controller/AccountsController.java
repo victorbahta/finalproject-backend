@@ -13,7 +13,7 @@ import java.util.List;
 public class AccountsController {
     @Autowired
     AccountService accountService;
-    @PostMapping("/signup")
+    @PostMapping()
     public void createAccount(@RequestBody Accounts account, @RequestParam(name = "role", required = false) String role) {
         accountService.createAccount(account, role);
     }
