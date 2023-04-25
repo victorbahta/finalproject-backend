@@ -17,14 +17,23 @@ public class AccountService {
     AccountRepository accountRepository;
 
     public void createAccount(Accounts account, String role) {
-        Accounts a;
-        a = (Admin) account;
+
         if(role.equals("owner")) {
-            a = (Owner) account;
+            System.out.println("owner working");
+            Owner o = new Owner();
+            o.setName(account.getName());
+            o.setEmail(account.getEmail());
+            o.setPassword(account.getPassword());
+            o.setAccountId(12);
+            accountRepository.save(o);
         } else if (role.equals("customer")) {
-            a = (Customer) account;
+            Customer c = (Customer) account;
+            accountRepository.save(c);
+        } else {
+            Admin a = (Admin) account;
+            accountRepository.save(a);
         }
-        accountRepository.save(a);
+
     }
 
     public List<Accounts> getAllUsers() {
