@@ -19,15 +19,16 @@ public class AccountService {
     public void createAccount(Accounts account, String role) {
 
         if(role.equals("owner")) {
-            System.out.println("owner working");
             Owner o = new Owner();
             o.setName(account.getName());
             o.setEmail(account.getEmail());
             o.setPassword(account.getPassword());
-            o.setAccountId(12);
             accountRepository.save(o);
-        } else if (role.equals("customer")) {
-            Customer c = (Customer) account;
+        } else if (role.equals("customer")) {;
+            Customer c = new Customer();
+            c.setName(account.getName());
+            c.setEmail(account.getEmail());
+            c.setPassword(account.getPassword());
             accountRepository.save(c);
         } else {
             Admin a = (Admin) account;
