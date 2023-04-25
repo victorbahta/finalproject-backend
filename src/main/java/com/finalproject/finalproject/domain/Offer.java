@@ -10,11 +10,7 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    enum Status{
-        REJECTED,
-        CANCELLED,
-        ACCEPTED,
-    }
+    String status;
 
     @ManyToOne
     Property property;
