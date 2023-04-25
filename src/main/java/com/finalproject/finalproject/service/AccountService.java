@@ -4,7 +4,7 @@ import com.finalproject.finalproject.domain.Accounts;
 import com.finalproject.finalproject.domain.Admin;
 import com.finalproject.finalproject.domain.Customer;
 import com.finalproject.finalproject.domain.Owner;
-import com.finalproject.finalproject.repository.AccountRepository;
+import com.finalproject.finalproject.repo.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

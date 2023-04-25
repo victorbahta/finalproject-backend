@@ -4,7 +4,18 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+enum PropertyType{
+    CONDO,
+    DUPLEX,
+    HOUSE
+}
+enum Status{
+    AVAILABLE,
+    PENDING,
+    CONTINGENT,
+    SOLD
 
+}
 @Data
 @Entity
 public class Property {
@@ -13,24 +24,15 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    enum Status{
-        AVAILABLE,
-        PENDING,
-        CONTINGENT,
-        SOLD
-
-    }
+    PropertyType property_type;
+    Status status;
 
     int views;
 
     String location;
-    enum PropertyType{
-        CONDO,
-        DUPLEX,
-        HOUSE
-    }
 
-    int roomNo;
+
+    int room_no;
 
     int price;
 
