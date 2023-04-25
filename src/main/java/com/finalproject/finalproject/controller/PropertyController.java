@@ -2,6 +2,8 @@ package com.finalproject.finalproject.controller;
 
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.domain.PropertyHistory;
+import com.finalproject.finalproject.dto.input.PropertyCriteriaRequest;
+import com.finalproject.finalproject.repo.PropertyCriteriaSearch;
 import com.finalproject.finalproject.service.PropertyHistoryService;
 import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +24,27 @@ public class PropertyController {
     @Autowired
     PropertyHistoryService propertyHistoryService;
 
+    @Autowired
+    PropertyCriteriaSearch propertyCriteriaSearch;
+
     @GetMapping("/{id}")
     public Property findById(@PathVariable("id") int id){
         return propertyService.findById(id);
     }
 
     @GetMapping
-    public List<Property> findAll(){
-        return propertyService.findAll();
+    public List<Property> findAll(
+            @RequestParam(value = "propertyType", required = false)String propertyType,
+            @RequestParam(value = "location", required = false)String location,
+            @RequestParam(value = "roomNo", required = false)Integer roomNo,
+            @RequestParam(value = "minPrice", required = false)Integer minPrice,
+            @RequestParam(value = "maxPrice", required = false)Integer maxPrice){
+        if(propertyType != null || location != null || roomNo != null || minPrice != null || maxPrice != null){
+            var req = new PropertyCriteriaRequest(minPrice, maxPrice, propertyType,roomNo, location);
+            return propertyCriteriaSearch.findAllByCriteria(req);
+        }else{
+            return propertyService.findAll();
+        }
     }
 
     @PostMapping
