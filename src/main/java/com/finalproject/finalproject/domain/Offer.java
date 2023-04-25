@@ -3,6 +3,8 @@ package com.finalproject.finalproject.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
 @Data
 public class Offer {
@@ -11,6 +13,8 @@ public class Offer {
     int id;
 
     String status;
+
+    Date submitDate;
 
     @ManyToOne
     Property property;
