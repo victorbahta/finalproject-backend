@@ -15,4 +15,7 @@ public class AccountsController {
     public void createAccount(@RequestBody Accounts account, @RequestParam(name = "role", required = false) String role) {
         accountService.createAccount(account, role);
     }
+
+//    @GetMapping
+//
 }
