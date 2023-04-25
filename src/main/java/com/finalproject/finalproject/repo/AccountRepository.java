@@ -1,4 +1,4 @@
-package com.finalproject.finalproject.repository;
+package com.finalproject.finalproject.repo;
 
 import com.finalproject.finalproject.domain.Accounts;
 import org.springframework.data.repository.CrudRepository;
