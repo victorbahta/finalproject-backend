@@ -3,6 +3,8 @@ package com.finalproject.finalproject.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
 @Data
 public class Offer {
@@ -10,11 +12,9 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    enum Status{
-        REJECTED,
-        CANCELLED,
-        ACCEPTED,
-    }
+    String status;
+
+    Date submitDate;
 
     @ManyToOne
     Property property;
