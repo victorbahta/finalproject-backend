@@ -1,11 +1,16 @@
 package com.finalproject.finalproject.controller;
 
 import com.finalproject.finalproject.domain.Property;
+import com.finalproject.finalproject.domain.PropertyHistory;
+import com.finalproject.finalproject.service.PropertyHistoryService;
 import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -13,6 +18,9 @@ import java.util.List;
 public class PropertyController {
     @Autowired
     PropertyService propertyService;
+
+    @Autowired
+    PropertyHistoryService propertyHistoryService;
 
     @GetMapping("/{id}")
     public Property findById(@PathVariable("id") int id){
@@ -37,6 +45,13 @@ public class PropertyController {
     @PutMapping("/{id}")
     public void update(@PathVariable("id") int id, @RequestBody Property property){
         propertyService.update(id, property);
+    }
+
+    @GetMapping("/first10")
+    List<Property> findFirst10ByDate(Date date, Pageable pageable){
+       List<PropertyHistory> propertyHistoryList = propertyHistoryService.findFirst10ByDate(date, pageable);
+       List<Property> propertyList = propertyHistoryList.stream().map(propertyHistory -> propertyHistory.getProperty()).collect(Collectors.toList());
+       return propertyList;
     }
 
 }
