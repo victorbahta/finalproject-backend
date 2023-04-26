@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,9 +16,11 @@ public class Accounts {
     private String name;
     private String email;
     private String password;
-    private String role;
     private LocalDate createdDate;
     private String status;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    private List<Role> roles;
 
     public void resetPassword() {
 

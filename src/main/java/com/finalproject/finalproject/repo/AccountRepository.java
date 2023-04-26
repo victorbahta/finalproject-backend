@@ -14,4 +14,6 @@ public interface AccountRepository extends CrudRepository<Accounts, Long> {
     void deleteAccountsByAccountId(Long id);
 
     Optional<Accounts> findByAccountId(Long id);
+
+    Accounts findByEmail(String email);
 }

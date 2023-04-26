@@ -4,11 +4,14 @@ import com.finalproject.finalproject.domain.*;
 import com.finalproject.finalproject.repo.AccountRepository;
 import com.finalproject.finalproject.repo.OfferRepo;
 import com.finalproject.finalproject.repo.PropertyRepo;
+import com.finalproject.finalproject.repo.RoleReop;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +23,18 @@ public class AccountService {
     PropertyRepo propertyRepo;
     @Autowired
     OfferRepo offerRepo;
+    @Autowired
+    private RoleReop roleRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void createAccount(Accounts account, String role) {
+        Role roleObj = new Role(role);
+        roleRepo.save(roleObj);
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleObj);
+
         Accounts a;
-        account.setRole(role);
         if(role.equals("owner")) {
             a = new Owner();
         } else if (role.equals("customer")) {
@@ -33,8 +44,8 @@ public class AccountService {
         }
         a.setName(account.getName());
         a.setEmail(account.getEmail());
-        a.setPassword(account.getPassword());
-        a.setRole(role);
+        a.setPassword(passwordEncoder.encode(account.getPassword()));
+        a.setRoles(roles);
         a.setCreatedDate(LocalDate.now());
         a.setStatus("inactive");
         accountRepository.save(a);
