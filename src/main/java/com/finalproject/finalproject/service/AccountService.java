@@ -7,6 +7,7 @@ import com.finalproject.finalproject.repo.PropertyRepo;
 import com.finalproject.finalproject.repo.RoleReop;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -131,6 +132,11 @@ public Accounts getAccountById(long id){
        return accountRepository.findAll();
     }
 
+mengting
+    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
+        return accountRepository.findFirst10ByDate(date, pageable);
+    }
+
     public void updloadImage(MultipartFile file, long customerId) throws IOException {
         Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
         try (InputStream inputStream = file.getInputStream()) {
@@ -153,6 +159,7 @@ public Accounts getAccountById(long id){
 
         return null;
     }
+
 
 
 }

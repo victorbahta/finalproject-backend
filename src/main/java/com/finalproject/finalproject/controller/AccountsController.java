@@ -5,6 +5,9 @@ import com.finalproject.finalproject.domain.Offer;
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import java.time.LocalDate;
+
 import java.io.IOException;
+
 import java.util.List;
 
 @RestController
@@ -82,6 +89,12 @@ public class AccountsController {
     public List<Accounts> findAllUsers() {
         return accountService.getAllUsers();
     }
+
+
+    @GetMapping("/first10")
+    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
+        return accountService.findFirst10ByDate(date, pageable);
+
     @PutMapping("/upload/{id}")
     public void uploadImage(@RequestBody MultipartFile file, @PathVariable("id") long id) throws IOException {
         accountService.updloadImage(file,id);
@@ -93,5 +106,6 @@ public class AccountsController {
 
         headers.setContentType(MediaType.IMAGE_JPEG);
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
+ 
     }
 }
