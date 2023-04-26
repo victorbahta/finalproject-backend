@@ -4,6 +4,7 @@ import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.domain.PropertyHistory;
 import com.finalproject.finalproject.dto.input.PropertyCriteriaRequest;
 import com.finalproject.finalproject.repo.PropertyCriteriaSearch;
+import com.finalproject.finalproject.service.AccountService;
 import com.finalproject.finalproject.service.PropertyHistoryService;
 import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class PropertyController {
 
     @GetMapping("/{id}")
     public Property findById(@PathVariable("id") int id){
+
         return propertyService.findById(id);
     }
 
@@ -43,12 +45,15 @@ public class PropertyController {
             var req = new PropertyCriteriaRequest(minPrice, maxPrice, propertyType,roomNo, location);
             return propertyCriteriaSearch.findAllByCriteria(req);
         }else{
+            System.out.println("am already thered to fetch the properties in propertyController");
+
             return propertyService.findAll();
         }
     }
 
     @PostMapping
     public void save(@RequestBody Property property){
+
         propertyService.save(property);
     }
 

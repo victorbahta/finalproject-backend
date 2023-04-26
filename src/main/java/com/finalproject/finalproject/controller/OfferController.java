@@ -31,6 +31,11 @@ public class OfferController {
         return offerService.findById(id);
     }
 
+//    @GetMapping
+//    public List<Offer> findAll(){
+//        return offerService.findAll();
+//    }
+
     @PostMapping
     public void save(@RequestBody Offer offer){
         offerService.save(offer);

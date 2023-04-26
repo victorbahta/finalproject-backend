@@ -1,7 +1,5 @@
 package com.finalproject.finalproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +15,6 @@ public class Property {
 
     String property_type;
     String status;
-    String listing_type; // sale or rent
 
     int views;
 
@@ -31,13 +28,9 @@ public class Property {
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
     List<PropertyHistory> propertyHistoryList;
 
-//    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//
-//    List<Offer> offerList;
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
+    List<Offer> offerList;
 
     @ManyToOne
-            @JsonBackReference
     Owner owner;
-
-
 }
