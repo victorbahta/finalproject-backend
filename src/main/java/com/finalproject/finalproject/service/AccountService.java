@@ -132,8 +132,9 @@ public Accounts getAccountById(long id){
        return accountRepository.findAll();
     }
 
-    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
-        return accountRepository.findFirst10ByDate(date, pageable);
+
+    public List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable){
+        return accountRepository.findFirst10ByCreatedDate(date, pageable);
     }
 
     public void updloadImage(MultipartFile file, long customerId) throws IOException {
@@ -157,10 +158,6 @@ public Accounts getAccountById(long id){
         }
 
         return null;
-    }
-
-    public Accounts getUSetByEmail(String email) {
-        return accountRepository.findByEmail(email);
     }
 
 
