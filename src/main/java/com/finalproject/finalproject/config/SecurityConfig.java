@@ -44,8 +44,8 @@ public class SecurityConfig {
 
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("/properties").permitAll()
-
                 .requestMatchers("/users/**").permitAll()
+                .requestMatchers("/users/:id").permitAll()
                 .requestMatchers("/users").permitAll()
 //                .requestMatchers("/properties/**").hasAnyAuthority(roles)
                 .anyRequest()

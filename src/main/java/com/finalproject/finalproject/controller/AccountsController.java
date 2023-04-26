@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -70,6 +71,11 @@ public class AccountsController {
     @GetMapping("/{id}/offers")
     public List<Offer> getOwnerOffers(@PathVariable("id") Long id) {
         return accountService.getOwnerOffers(id);
+    }
+
+    @GetMapping("/{id}")
+    public Accounts getUser(@PathVariable("id") Long id) {
+        return accountService.getAccountById(id);
     }
 
     @GetMapping()
