@@ -8,7 +8,12 @@ import com.finalproject.finalproject.service.PropertyHistoryService;
 import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -48,8 +53,23 @@ public class PropertyController {
     }
 
     @PostMapping
-    public void save(@RequestBody Property property){
+    public void save( @RequestBody Property property) {
         propertyService.save(property);
+
+    }
+
+    @PutMapping("/{id}/upload")
+    public void addImage(@RequestBody MultipartFile file, @PathVariable("id") int id) throws  Exception{
+        propertyService.addImage(file, id);
+
+    }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") int propertyId){
+        byte[] image = propertyService.getImage(propertyId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 
     @DeleteMapping({"/{id}"})
@@ -69,5 +89,6 @@ public class PropertyController {
        List<Property> propertyList = propertyHistoryList.stream().map(propertyHistory -> propertyHistory.getProperty()).collect(Collectors.toList());
        return propertyList;
     }
+
 
 }

@@ -32,6 +32,8 @@ public class Property {
 
     int price;
 
+    byte[] image;
+
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
     List<PropertyHistory> propertyHistoryList;
 
