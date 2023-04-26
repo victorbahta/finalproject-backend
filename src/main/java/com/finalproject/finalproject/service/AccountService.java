@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,7 +112,10 @@ public class AccountService {
         offerRepo.save(o);
     }
 
+public Accounts getAccountById(long id){
+    return accountRepository.findByAccountId(id).get();
 
+}
 
     public List<Accounts> getAllUsers() {
        return accountRepository.findAll();
