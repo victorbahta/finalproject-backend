@@ -160,6 +160,8 @@ public Accounts getAccountById(long id){
         return null;
     }
 
-
+    public Accounts getUSetByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
 
 }
