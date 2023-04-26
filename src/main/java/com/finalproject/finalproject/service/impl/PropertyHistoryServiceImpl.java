@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PropertyHistoryServiceImpl implements PropertyHistoryService {
     @Autowired
     PropertyHistoryRepo propertyHistoryRepo;
     @Override
-    public List<PropertyHistory> findFirst10ByDate(Date date, Pageable pageable) {
+    public List<PropertyHistory> findFirst10ByDate(LocalDate date, Pageable pageable) {
         return propertyHistoryRepo.findFirst10ByDate(date, pageable);
     }
 

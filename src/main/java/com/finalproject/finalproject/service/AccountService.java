@@ -7,6 +7,7 @@ import com.finalproject.finalproject.repo.PropertyRepo;
 import com.finalproject.finalproject.repo.RoleReop;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -115,5 +116,9 @@ public class AccountService {
 
     public List<Accounts> getAllUsers() {
        return accountRepository.findAll();
+    }
+
+    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
+        return accountRepository.findFirst10ByDate(date, pageable);
     }
 }

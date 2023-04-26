@@ -5,8 +5,10 @@ import com.finalproject.finalproject.domain.Offer;
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -62,5 +64,10 @@ public class AccountsController {
     @GetMapping()
     public List<Accounts> findAllUsers() {
         return accountService.getAllUsers();
+    }
+
+    @GetMapping
+    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
+        return accountService.findFirst10ByDate(date, pageable);
     }
 }
