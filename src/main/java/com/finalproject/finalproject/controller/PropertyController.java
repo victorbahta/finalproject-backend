@@ -42,9 +42,9 @@ public class PropertyController {
         if(propertyType != null || location != null || roomNo != null || minPrice != null || maxPrice != null){
             var req = new PropertyCriteriaRequest(minPrice, maxPrice, propertyType,roomNo, location);
             return propertyCriteriaSearch.findAllByCriteria(req);
-        }else{
+        }else
             return propertyService.findAll();
-        }
+
     }
 
     @PostMapping
@@ -59,6 +59,7 @@ public class PropertyController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable("id") int id, @RequestBody Property property){
+        property.setId(id);
         propertyService.update(id, property);
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,9 +14,9 @@ public class OfferCriteriaRequest {
 
     String property;
 
-    Date startDate;
+    LocalDate startDate;
 
-    Date endDate;
+    LocalDate endDate;
 
     String location;
 }
