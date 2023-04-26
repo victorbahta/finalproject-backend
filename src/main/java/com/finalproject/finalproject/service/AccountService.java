@@ -132,7 +132,6 @@ public Accounts getAccountById(long id){
        return accountRepository.findAll();
     }
 
-mengting
     public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
         return accountRepository.findFirst10ByDate(date, pageable);
     }
@@ -158,6 +157,10 @@ mengting
         }
 
         return null;
+    }
+
+    public Accounts getUSetByEmail(String email) {
+        return accountRepository.findByEmail(email);
     }
 
 

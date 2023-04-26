@@ -109,4 +109,9 @@ public class AccountsController {
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
  
     }
+    @GetMapping("/{email}")
+    public Accounts findUserByEmail( @PathVariable("email") String email) {
+        System.out.println("TRYING TO FETCH EAMIL:" + email);
+        return accountService.getUSetByEmail(email);
+    }
 }
