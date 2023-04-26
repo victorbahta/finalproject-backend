@@ -3,6 +3,7 @@ package com.finalproject.finalproject.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -13,7 +14,7 @@ public class PropertyHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    Date date;
+    LocalDate date;
 
     int price;
 

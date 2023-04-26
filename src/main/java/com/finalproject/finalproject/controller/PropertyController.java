@@ -7,6 +7,7 @@ import com.finalproject.finalproject.repo.PropertyCriteriaSearch;
 import com.finalproject.finalproject.service.PropertyHistoryService;
 import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,7 +86,7 @@ public class PropertyController {
     }
 
     @GetMapping("/first10")
-    List<Property> findFirst10ByDate(Date date, Pageable pageable){
+    List<Property> findFirst10ByDate(LocalDate date, Pageable pageable){
        List<PropertyHistory> propertyHistoryList = propertyHistoryService.findFirst10ByDate(date, pageable);
        List<Property> propertyList = propertyHistoryList.stream().map(propertyHistory -> propertyHistory.getProperty()).collect(Collectors.toList());
        return propertyList;
