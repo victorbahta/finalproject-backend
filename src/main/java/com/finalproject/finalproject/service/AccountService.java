@@ -9,7 +9,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,11 @@ public class AccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public List<Accounts> getRecentAccounts() {
+        List<Accounts> recentAccounts = accountRepository.findAll();
+
+        return recentAccounts.stream().filter(a -> a instanceof Customer).limit(10).collect(Collectors.toList());
+    }
     public void createAccount(Accounts account, String role) {
         Role roleObj = new Role(role);
         roleRepo.save(roleObj);
@@ -115,5 +123,28 @@ public class AccountService {
 
     public List<Accounts> getAllUsers() {
        return accountRepository.findAll();
+    }
+
+    public void updloadImage(MultipartFile file, long customerId) throws IOException {
+        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
+        try (InputStream inputStream = file.getInputStream()) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            customer.setImage(imageBytes);
+            accountRepository.save(customer);
+        } catch (IOException e) {
+            throw new IOException("Failed to read or save uploaded image", e);
+        }
+
+
+
+    }
+    public byte[] getImage(long customerId){
+        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
+        byte[] imageData = customer.getImage();
+        if (imageData != null) {
+            return imageData;
+        }
+
+        return null;
     }
 }

@@ -5,8 +5,14 @@ import com.finalproject.finalproject.domain.Offer;
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,6 +25,13 @@ public class AccountsController {
     public void createAccount(@RequestBody Accounts account, @RequestParam(name = "role", required = false) String role) {
         accountService.createAccount(account, role);
     }
+
+
+    @GetMapping("/recent/customers")
+    public List<Accounts> getRecentAccounts() {
+        return accountService.getRecentAccounts();
+    }
+
     @DeleteMapping("/{id}")
     @ResponseBody
     public String deleteAccount(@PathVariable("id") Long id) {
@@ -62,5 +75,17 @@ public class AccountsController {
     @GetMapping()
     public List<Accounts> findAllUsers() {
         return accountService.getAllUsers();
+    }
+    @PutMapping("/upload/{id}")
+    public void uploadImage(@RequestBody MultipartFile file, @PathVariable("id") long id) throws IOException {
+        accountService.updloadImage(file,id);
+    }
+    @GetMapping("get-image/{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") long customerId){
+        byte[] image = accountService.getImage(customerId);
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<>(image, headers, HttpStatus.OK);
     }
 }
