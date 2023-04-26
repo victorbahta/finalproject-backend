@@ -66,7 +66,7 @@ public class AccountsController {
         return accountService.getAllUsers();
     }
 
-    @GetMapping
+    @GetMapping("/first10")
     public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
         return accountService.findFirst10ByDate(date, pageable);
     }
