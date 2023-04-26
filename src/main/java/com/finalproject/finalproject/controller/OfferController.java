@@ -12,6 +12,7 @@ import com.finalproject.finalproject.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -43,14 +44,15 @@ public class OfferController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable("id") int id, @RequestBody Offer offer){
+        offer.setId(id);
         offerService.update(id, offer);
     }
 
     @GetMapping
     public List<Offer> findAll(
             @RequestParam(value = "property", required = false)String property,
-            @RequestParam(value = "startDate", required = false) Date startDate,
-            @RequestParam(value = "endDate", required = false)Date endDate,
+            @RequestParam(value = "startDate", required = false) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false) LocalDate endDate,
             @RequestParam(value = "location", required = false)String location){
         if(property != null || startDate != null || endDate != null || location != null){
             var req = new OfferCriteriaRequest(property, startDate, endDate, location);

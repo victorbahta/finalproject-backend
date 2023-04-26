@@ -20,4 +20,5 @@ public class PropertyHistoryServiceImpl implements PropertyHistoryService {
     public List<PropertyHistory> findFirst10ByDate(Date date, Pageable pageable) {
         return propertyHistoryRepo.findFirst10ByDate(date, pageable);
     }
+
 }
