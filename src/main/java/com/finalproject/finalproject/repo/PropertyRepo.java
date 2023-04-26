@@ -14,6 +14,8 @@ import java.util.List;
 public interface PropertyRepo extends JpaRepository<Property, Integer> {
     List<Property> findAll();
 
+    Property save(Property p);
+
     Property findById(int id);
 
 

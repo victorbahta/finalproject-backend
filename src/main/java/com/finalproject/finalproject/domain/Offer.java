@@ -1,9 +1,10 @@
 package com.finalproject.finalproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -14,7 +15,7 @@ public class Offer {
 
     String status;
 
-    Date submitDate;
+    LocalDate submitDate;
 
     @ManyToOne
     Property property;
@@ -23,6 +24,7 @@ public class Offer {
     Owner owner;
 
     @ManyToOne
+            @JsonBackReference
     Customer customer;
 
 }

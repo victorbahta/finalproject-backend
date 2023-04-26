@@ -6,7 +6,6 @@ import lombok.Data;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "role")
 public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +13,7 @@ public class Accounts {
     private String name;
     private String email;
     private String password;
+    private String role;
 
     public void resetPassword() {
 
