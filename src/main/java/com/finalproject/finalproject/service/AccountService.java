@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +33,11 @@ public class AccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public List<Accounts> getRecentAccounts() {
+        List<Accounts> recentAccounts = accountRepository.findAll();
+
+        return recentAccounts.stream().filter(a -> a instanceof Customer).limit(10).collect(Collectors.toList());
+    }
     public void createAccount(Accounts account, String role) {
         Role roleObj = new Role(role);
         roleRepo.save(roleObj);
@@ -52,6 +61,8 @@ public class AccountService {
         accountRepository.save(a);
 
     }
+
+
 @Transactional
     public String deleteAccount(Long id) {
         accountRepository.deleteAccountsByAccountId(id);
@@ -112,13 +123,43 @@ public class AccountService {
         offerRepo.save(o);
     }
 
+public Accounts getAccountById(long id){
+    return accountRepository.findByAccountId(id).get();
 
+}
 
     public List<Accounts> getAllUsers() {
        return accountRepository.findAll();
     }
 
+mengting
     public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
         return accountRepository.findFirst10ByDate(date, pageable);
     }
+
+    public void updloadImage(MultipartFile file, long customerId) throws IOException {
+        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
+        try (InputStream inputStream = file.getInputStream()) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            customer.setImage(imageBytes);
+            accountRepository.save(customer);
+        } catch (IOException e) {
+            throw new IOException("Failed to read or save uploaded image", e);
+        }
+
+
+
+    }
+    public byte[] getImage(long customerId){
+        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
+        byte[] imageData = customer.getImage();
+        if (imageData != null) {
+            return imageData;
+        }
+
+        return null;
+    }
+
+
+
 }

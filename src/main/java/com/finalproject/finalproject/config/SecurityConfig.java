@@ -42,12 +42,12 @@ public class SecurityConfig {
 
 //                .requestMatchers("/users").permitAll()
 
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/**").permitAll()
                 .requestMatchers("/properties").permitAll()
-
                 .requestMatchers("/users/**").permitAll()
+                .requestMatchers("/users/:id").permitAll()
                 .requestMatchers("/users").permitAll()
-                .requestMatchers("/properties/**").hasAnyAuthority(roles)
+//                .requestMatchers("/properties/**").hasAnyAuthority(roles)
                 .anyRequest()
                 .authenticated()
                 .and()
