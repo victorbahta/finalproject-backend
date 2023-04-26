@@ -4,6 +4,7 @@ import com.finalproject.finalproject.domain.*;
 import com.finalproject.finalproject.repo.AccountRepository;
 import com.finalproject.finalproject.repo.OfferRepo;
 import com.finalproject.finalproject.repo.PropertyRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +35,34 @@ public class AccountService {
         a.setEmail(account.getEmail());
         a.setPassword(account.getPassword());
         a.setRole(role);
+        a.setCreatedDate(LocalDate.now());
+        a.setStatus("inactive");
         accountRepository.save(a);
 
+    }
+@Transactional
+    public String deleteAccount(Long id) {
+        accountRepository.deleteAccountsByAccountId(id);
+        return "Account deleted";
+    }
+
+    public String deactivateAccount(Long id) {
+        Accounts a = accountRepository.findByAccountId(id).get();
+        a.setStatus("inactive");
+        accountRepository.save(a);
+        return "Account deactivated";
+    }
+    public String activateAccount(Long id) {
+        Accounts a = accountRepository.findByAccountId(id).get();
+        a.setStatus("active");
+        accountRepository.save(a);
+        return "Account activated";
+    }
+    public String resetPassword(Long id, Accounts password) {
+        Accounts a = accountRepository.findByAccountId(id).get();
+        a.setPassword(password.getPassword());
+        accountRepository.save(a);
+        return "Password is reset";
     }
 
     public void addOwnerProperty(Long ownerId, Property p) {
