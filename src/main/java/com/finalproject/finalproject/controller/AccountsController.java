@@ -92,8 +92,8 @@ public class AccountsController {
 
 
     @GetMapping("/first10")
-    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable) {
-        return accountService.findFirst10ByDate(date, pageable);
+    public List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable) {
+        return accountService.findFirst10ByCreatedDate(date, pageable);
     }
 
     @PutMapping("/upload/{id}")

@@ -21,5 +21,5 @@ public interface AccountRepository extends JpaRepository<Accounts, Long> {
 
     Accounts findByEmail(String email);
 
-    List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable);
+    List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable);
 }
