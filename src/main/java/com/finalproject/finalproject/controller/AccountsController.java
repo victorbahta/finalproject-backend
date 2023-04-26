@@ -92,8 +92,9 @@ public class AccountsController {
 
 
     @GetMapping("/first10")
-    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable){
+    public List<Accounts> findFirst10ByDate(LocalDate date, Pageable pageable) {
         return accountService.findFirst10ByDate(date, pageable);
+    }
 
     @PutMapping("/upload/{id}")
     public void uploadImage(@RequestBody MultipartFile file, @PathVariable("id") long id) throws IOException {
