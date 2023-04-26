@@ -60,6 +60,8 @@ public class AccountService {
         accountRepository.save(a);
 
     }
+
+
 @Transactional
     public String deleteAccount(Long id) {
         accountRepository.deleteAccountsByAccountId(id);
@@ -151,4 +153,6 @@ public Accounts getAccountById(long id){
 
         return null;
     }
+
+
 }
