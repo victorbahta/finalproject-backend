@@ -35,7 +35,7 @@ public class AccountService {
     public List<Accounts> getRecentAccounts() {
         List<Accounts> recentAccounts = accountRepository.findAll();
 
-        return recentAccounts.stream().filter(a -> a instanceof Customer).limit(10).collect(Collectors.toList());
+        return recentAccounts.stream().filter(a -> !(a instanceof Admin)).limit(10).collect(Collectors.toList());
     }
     public void createAccount(Accounts account, String role) {
         Role roleObj = new Role(role);

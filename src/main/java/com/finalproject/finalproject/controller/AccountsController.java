@@ -42,7 +42,7 @@ public class AccountsController {
     }
 
 
-    @GetMapping("/recent/customers")
+    @GetMapping("/recent")
     public List<Accounts> getRecentAccounts() {
         return accountService.getRecentAccounts();
     }
