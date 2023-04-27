@@ -15,6 +15,5 @@ import java.util.List;
 public class Customer extends Accounts {
 
     @OneToMany(mappedBy = "customer")
-            @JsonIgnore
     List<Offer> offerList;
 }
