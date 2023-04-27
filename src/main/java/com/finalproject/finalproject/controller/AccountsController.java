@@ -100,7 +100,7 @@ public class AccountsController {
     public void uploadImage(@RequestBody MultipartFile file, @PathVariable("id") long id) throws IOException {
         accountService.updloadImage(file,id);
     }
-    @GetMapping("get-image/{id}")
+    @GetMapping("/get-image/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable("id") long customerId){
         byte[] image = accountService.getImage(customerId);
         HttpHeaders headers = new HttpHeaders();
@@ -109,7 +109,7 @@ public class AccountsController {
         return new ResponseEntity<>(image, headers, HttpStatus.OK);
  
     }
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public Accounts findUserByEmail( @PathVariable("email") String email) {
         System.out.println("TRYING TO FETCH EAMIL:" + email);
         return accountService.getUSetByEmail(email);
