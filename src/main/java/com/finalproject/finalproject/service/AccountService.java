@@ -114,7 +114,8 @@ public class AccountService {
         Property p = propertyRepo.findById(pid);
         Owner owner = p.getOwner();
         Message msg = new Message();
-        msg.setMsg("Customer "+ c.getName()+" sent you an offer");
+        String offer_msg = o.getMessage().isEmpty() ? "Customer "+ c.getName()+" sent you an offer" : o.getMessage();
+        msg.setMsg(offer_msg);
         msg.setCustomer(c);
         msg.setOwner(owner);
         msg.setProperty(p);

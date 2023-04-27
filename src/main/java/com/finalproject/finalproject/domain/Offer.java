@@ -16,6 +16,10 @@ public class Offer {
 
     String status;
 
+    double amount;
+
+    String message;
+
     LocalDate submitDate;
 
     @ManyToOne
