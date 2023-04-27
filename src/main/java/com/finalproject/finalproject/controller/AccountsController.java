@@ -33,6 +33,13 @@ public class AccountsController {
     public void createAccount(@RequestBody Accounts account, @RequestParam(name = "role", required = false) String role) {
         accountService.createAccount(account, role);
     }
+    @PostMapping("/multiple")
+    public void createAccount(@RequestBody List<Accounts> accounts, @RequestParam(name = "role", required = false) String role) {
+        for (Accounts a: accounts) {
+            this.createAccount(a, role);
+
+        }
+    }
 
 
     @GetMapping("/recent/customers")
@@ -65,6 +72,12 @@ public class AccountsController {
     @PutMapping("/{id}/property")
     public void addOwnerProperty(@PathVariable("id") Long id, @RequestBody Property p) {
         accountService.addOwnerProperty(id,p);
+    }
+    @PutMapping("/{id}/property/multiple")
+    public void addMultipleOwnerProperty(@PathVariable("id") Long id, @RequestBody List<Property> properties) {
+        for (Property p: properties) {
+            this.addOwnerProperty(id,p);
+        }
     }
     // offer from customer
     @PutMapping("/{id}/property/{pid}/offer")
@@ -103,20 +116,6 @@ public class AccountsController {
     @GetMapping("/first10")
     public List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable) {
         return accountService.findFirst10ByCreatedDate(date, pageable);
-    }
-
-    @PutMapping("/upload/{id}")
-    public void uploadImage(@RequestBody MultipartFile file, @PathVariable("id") long id) throws IOException {
-        accountService.updloadImage(file,id);
-    }
-    @GetMapping("/get-image/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") long customerId){
-        byte[] image = accountService.getImage(customerId);
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        return new ResponseEntity<>(image, headers, HttpStatus.OK);
- 
     }
     @GetMapping("/email/{email}")
     public Accounts findUserByEmail( @PathVariable("email") String email) {

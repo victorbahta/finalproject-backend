@@ -154,28 +154,6 @@ public Accounts getAccountById(long id){
         return accountRepository.findFirst10ByCreatedDate(date, pageable);
     }
 
-    public void updloadImage(MultipartFile file, long customerId) throws IOException {
-        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
-        try (InputStream inputStream = file.getInputStream()) {
-            byte[] imageBytes = inputStream.readAllBytes();
-            customer.setImage(imageBytes);
-            accountRepository.save(customer);
-        } catch (IOException e) {
-            throw new IOException("Failed to read or save uploaded image", e);
-        }
-
-
-
-    }
-    public byte[] getImage(long customerId){
-        Customer customer = (Customer) accountRepository.findByAccountId(customerId).get();
-        byte[] imageData = customer.getImage();
-        if (imageData != null) {
-            return imageData;
-        }
-
-        return null;
-    }
 
     public Accounts getUSetByEmail(String email) {
         return accountRepository.findByEmail(email);

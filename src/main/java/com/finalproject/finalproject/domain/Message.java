@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ public class Message {
     int id;
     String msg;
     @OneToOne
+            @JsonIgnore
     Owner owner;
     @OneToOne
     Customer customer;

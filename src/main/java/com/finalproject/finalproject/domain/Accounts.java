@@ -18,7 +18,6 @@ public class Accounts {
     private String password;
     private LocalDate createdDate;
     private String status;
-    private byte[] image;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Role> roles;
