@@ -37,6 +37,12 @@ public class PropertyCriteriaSearch {
             predicates.add(locationTypePredicate);
         }
 
+
+        if(propertyCriteriaRequest.getListingType() != null){
+            Predicate listingTypePredicate = criteriaBuilder.like(root.get("listing_type"), "%" + propertyCriteriaRequest.getListingType() + "%");
+            predicates.add(listingTypePredicate);
+        }
+
         if(propertyCriteriaRequest.getRoomNo() != null){
             Predicate roomNoTypePredicate = criteriaBuilder.equal(root.get("room_no"), propertyCriteriaRequest.getRoomNo());
             predicates.add(roomNoTypePredicate);

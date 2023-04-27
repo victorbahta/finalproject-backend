@@ -15,8 +15,11 @@ public class PropertyCriteriaRequest {
 
     private String propertyType;
 
+    private String listingType;
+
     private Integer roomNo;
 
     private String location;
+
 
 }

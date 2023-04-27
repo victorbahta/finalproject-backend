@@ -7,14 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,15 +83,17 @@ public class AccountService {
         return "Password is reset";
     }
 
-    public void addOwnerProperty(Long ownerId, Property p) {
+    public Property addOwnerProperty(Long ownerId, Property p) {
         Owner o = (Owner) accountRepository.findByAccountId(ownerId).get();
         List<Property> list = o.getPropertyList();
         list.add(p);
         o.setPropertyList(list);
         p.setOwner(o);
 
-        propertyRepo.save(p);
         accountRepository.save(o);
+        Property property = propertyRepo.save(p);
+        return property;
+
 
     }
 

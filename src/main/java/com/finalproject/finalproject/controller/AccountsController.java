@@ -9,17 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Pageable;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import java.time.LocalDate;
-
-import java.io.IOException;
 
 import java.util.List;
 
@@ -70,8 +63,8 @@ public class AccountsController {
     }
     // add owner property
     @PutMapping("/{id}/property")
-    public void addOwnerProperty(@PathVariable("id") Long id, @RequestBody Property p) {
-        accountService.addOwnerProperty(id,p);
+    public Property addOwnerProperty(@PathVariable("id") Long id, @RequestBody Property p) {
+        return accountService.addOwnerProperty(id,p);
     }
     @PutMapping("/{id}/property/multiple")
     public void addMultipleOwnerProperty(@PathVariable("id") Long id, @RequestBody List<Property> properties) {

@@ -42,12 +42,13 @@ public class PropertyController {
     @GetMapping
     public List<Property> findAll(
             @RequestParam(value = "propertyType", required = false)String propertyType,
+            @RequestParam(value = "listingType", required = false)String listingType,
             @RequestParam(value = "location", required = false)String location,
             @RequestParam(value = "roomNo", required = false)Integer roomNo,
             @RequestParam(value = "minPrice", required = false)Integer minPrice,
             @RequestParam(value = "maxPrice", required = false)Integer maxPrice){
         if(propertyType != null || location != null || roomNo != null || minPrice != null || maxPrice != null){
-            var req = new PropertyCriteriaRequest(minPrice, maxPrice, propertyType,roomNo, location);
+            var req = new PropertyCriteriaRequest(minPrice, maxPrice, propertyType,listingType,roomNo, location);
             return propertyCriteriaSearch.findAllByCriteria(req);
         }else
             return propertyService.findAll();
