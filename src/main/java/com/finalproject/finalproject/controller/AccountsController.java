@@ -1,6 +1,7 @@
 package com.finalproject.finalproject.controller;
 
 import com.finalproject.finalproject.domain.Accounts;
+import com.finalproject.finalproject.domain.Message;
 import com.finalproject.finalproject.domain.Offer;
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.service.AccountService;
@@ -69,6 +70,14 @@ public class AccountsController {
     @PutMapping("/{id}/property/{pid}/offer")
     public void addCustomerOffer(@PathVariable("id") Long id, @PathVariable("pid") int pid, @RequestBody Offer o) {
         accountService.addCustomerOffer(id,pid,o);
+    }
+    @PutMapping("/{id}/offers/{oid}")
+    public void updateOfferStatus(@PathVariable("id") Long id, @RequestBody Offer o, @PathVariable("oid") int oid) {
+        accountService.updateOfferStatus(id,o, oid);
+    }
+    @GetMapping("/{id}/messages")
+    public List<Message> getOwnerMessages(@PathVariable("id") long id) {
+        return accountService.getMessages(id);
     }
     @GetMapping("/{id}/property")
     public List<Property> getOwnerProperties(@PathVariable("id") Long id) {

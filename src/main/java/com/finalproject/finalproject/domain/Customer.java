@@ -1,5 +1,6 @@
 package com.finalproject.finalproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -14,6 +15,6 @@ import java.util.List;
 public class Customer extends Accounts {
 
     @OneToMany(mappedBy = "customer")
-            @JsonManagedReference
+            @JsonIgnore
     List<Offer> offerList;
 }

@@ -1,9 +1,8 @@
 package com.finalproject.finalproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +15,7 @@ import java.util.List;
 public class Owner extends Accounts {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
-            @JsonManagedReference
+            @JsonIgnore
+
     List<Property> propertyList;
 }

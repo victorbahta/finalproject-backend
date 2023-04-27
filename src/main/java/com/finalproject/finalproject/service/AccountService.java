@@ -1,10 +1,7 @@
 package com.finalproject.finalproject.service;
 
 import com.finalproject.finalproject.domain.*;
-import com.finalproject.finalproject.repo.AccountRepository;
-import com.finalproject.finalproject.repo.OfferRepo;
-import com.finalproject.finalproject.repo.PropertyRepo;
-import com.finalproject.finalproject.repo.RoleReop;
+import com.finalproject.finalproject.repo.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +27,8 @@ public class AccountService {
     OfferRepo offerRepo;
     @Autowired
     private RoleReop roleRepo;
+    @Autowired
+    private MessageService msgService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -115,12 +114,30 @@ public class AccountService {
     public void addCustomerOffer(Long customerId, int pid, Offer o) {
         Customer c = (Customer) accountRepository.findByAccountId(customerId).get();
         Property p = propertyRepo.findById(pid);
-        o.setOwner(p.getOwner());
+        Owner owner = p.getOwner();
+        Message msg = new Message();
+        msg.setMsg("Customer "+ c.getName()+" sent you an offer");
+        msg.setCustomer(c);
+        msg.setOwner(owner);
+        msg.setProperty(p);
+        msgService.saveMsg(msg);
+        o.setOwner(owner);
         o.setStatus("PENDING");
         o.setCustomer(c);
         o.setProperty(p);
         o.setSubmitDate(LocalDate.now());
         offerRepo.save(o);
+
+    }
+
+    public List<Message> getMessages(long id) {
+       return  msgService.getAllMsgs(id);
+    }
+    public void updateOfferStatus(Long ownerId, Offer o, int oid) {
+        List<Offer> offers = offerRepo.getAllOwnersOffer(ownerId);
+        Offer offer = offers.stream().filter(of->of.getId() == oid).findFirst().get();
+        offer.setStatus(o.getStatus());
+        offerRepo.save(offer);
     }
 
 public Accounts getAccountById(long id){

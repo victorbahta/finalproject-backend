@@ -1,6 +1,7 @@
 package com.finalproject.finalproject.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class Offer {
     Property property;
 
     @ManyToOne
+            @JsonIgnore
     Owner owner;
 
     @ManyToOne

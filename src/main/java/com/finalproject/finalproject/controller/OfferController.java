@@ -19,7 +19,8 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/offers")
-public class OfferController {
+public class
+OfferController {
 
     @Autowired
     OfferService offerService;
