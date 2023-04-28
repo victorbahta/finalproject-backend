@@ -61,10 +61,10 @@ public class AccountsController {
     public String activateAccount(@PathVariable("id") Long id) {
         return accountService.activateAccount(id);
     }
-    @PutMapping("/{id}/resetpassword")
-    @ResponseBody
-    public String resetPassword(@PathVariable("id") Long id, Accounts a) {
-        return accountService.resetPassword(id, a);
+    @PutMapping("/{email}/resetpassword")
+//    @ResponseBody
+    public String resetPassword(@PathVariable("email") String email, @RequestBody String password) {
+        return accountService.resetPassword(email, password);
     }
     // add owner property
     @PutMapping("/{id}/property")
@@ -118,7 +118,7 @@ public class AccountsController {
     @GetMapping("/email/{email}")
     public Accounts findUserByEmail( @PathVariable("email") String email) {
         System.out.println("TRYING TO FETCH EAMIL:" + email);
-        return accountService.getUSetByEmail(email);
+        return accountService.getUserByEmail(email);
     }
 
 

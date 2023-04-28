@@ -79,9 +79,9 @@ public class AccountService {
         return "Account activated";
     }
 
-    public String resetPassword(Long id, Accounts password) {
-        Accounts a = accountRepository.findByAccountId(id).get();
-        a.setPassword(password.getPassword());
+    public String resetPassword(String email, String password) {
+        var a= accountRepository.findByEmail(email);
+        a.setPassword(passwordEncoder.encode(password));
         accountRepository.save(a);
         return "Password is reset";
     }
@@ -168,7 +168,7 @@ public class AccountService {
         //.map(accounts -> accounts.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList())
     }
 
-    public Accounts getUSetByEmail(String email) {
+    public Accounts getUserByEmail(String email) {
         return accountRepository.findByEmail(email);
     }
 
