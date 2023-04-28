@@ -33,6 +33,7 @@ public class AccountService {
 
         return recentAccounts.stream().filter(a -> !(a instanceof Admin)).limit(10).collect(Collectors.toList());
     }
+
     public void createAccount(Accounts account, String role) {
         Role roleObj = new Role(role);
         roleRepo.save(roleObj);
@@ -40,12 +41,12 @@ public class AccountService {
         roles.add(roleObj);
 
         Accounts a;
-        if(role.equals("owner")) {
+        if (role.equals("owner")) {
             a = new Owner();
         } else if (role.equals("customer")) {
             a = new Customer();
         } else {
-             a = new Admin();
+            a = new Admin();
         }
         a.setName(account.getName());
         a.setEmail(account.getEmail());
@@ -58,7 +59,7 @@ public class AccountService {
     }
 
 
-@Transactional
+    @Transactional
     public String deleteAccount(Long id) {
         accountRepository.deleteAccountsByAccountId(id);
         return "Account deleted";
@@ -70,12 +71,14 @@ public class AccountService {
         accountRepository.save(a);
         return "Account deactivated";
     }
+
     public String activateAccount(Long id) {
         Accounts a = accountRepository.findByAccountId(id).get();
         a.setStatus("active");
         accountRepository.save(a);
         return "Account activated";
     }
+
     public String resetPassword(Long id, Accounts password) {
         Accounts a = accountRepository.findByAccountId(id).get();
         a.setPassword(password.getPassword());
@@ -114,7 +117,7 @@ public class AccountService {
         Property p = propertyRepo.findById(pid);
         Owner owner = p.getOwner();
         Message msg = new Message();
-        String offer_msg = o.getMessage().isEmpty() ? "Customer "+ c.getName()+" sent you an offer" : o.getMessage();
+        String offer_msg = o.getMessage().isEmpty() ? "Customer " + c.getName() + " sent you an offer" : o.getMessage();
         msg.setMsg(offer_msg);
         msg.setCustomer(c);
         msg.setOwner(owner);
@@ -130,29 +133,40 @@ public class AccountService {
     }
 
     public List<Message> getMessages(long id) {
-       return  msgService.getAllMsgs(id);
+        return msgService.getAllMsgs(id);
     }
+
     public void updateOfferStatus(Long ownerId, Offer o, int oid) {
         List<Offer> offers = offerRepo.getAllOwnersOffer(ownerId);
-        Offer offer = offers.stream().filter(of->of.getId() == oid).findFirst().get();
+        Offer offer = offers.stream().filter(of -> of.getId() == oid).findFirst().get();
         offer.setStatus(o.getStatus());
         offerRepo.save(offer);
     }
 
-public Accounts getAccountById(long id){
-    return accountRepository.findByAccountId(id).get();
+    public Accounts getAccountById(long id) {
+        return accountRepository.findByAccountId(id).get();
 
-}
+    }
 
     public List<Accounts> getAllUsers() {
-       return accountRepository.findAll();
+        return accountRepository.findAll();
     }
 
 
-    public List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable){
+    public List<Accounts> findFirst10ByCreatedDate(LocalDate date, Pageable pageable) {
         return accountRepository.findFirst10ByCreatedDate(date, pageable);
     }
 
+    public List<Accounts> getAllUsersByStatus(String status) {
+        return accountRepository.findAll().stream()
+                .filter(a -> !(a instanceof Admin))
+                .limit(10)
+                .filter(a -> a.getStatus()
+                        .equalsIgnoreCase(status))
+                .collect(Collectors.toList());
+
+        //.map(accounts -> accounts.getStatus().equalsIgnoreCase(status)).collect(Collectors.toList())
+    }
 
     public Accounts getUSetByEmail(String email) {
         return accountRepository.findByEmail(email);

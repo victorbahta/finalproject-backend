@@ -36,10 +36,15 @@ public class AccountsController {
 
 
     @GetMapping("/recent")
-    public List<Accounts> getRecentAccounts() {
-        return accountService.getRecentAccounts();
-    }
+    public List<Accounts> getRecentAccounts( @RequestParam(name = "status", required = false) String status) {
 
+        if (status==null)
+        return accountService.getRecentAccounts();
+
+        return accountService.getAllUsersByStatus(status);
+
+
+    }
 
     @DeleteMapping("/{id}")
     @ResponseBody
@@ -115,4 +120,7 @@ public class AccountsController {
         System.out.println("TRYING TO FETCH EAMIL:" + email);
         return accountService.getUSetByEmail(email);
     }
+
+
+
 }
