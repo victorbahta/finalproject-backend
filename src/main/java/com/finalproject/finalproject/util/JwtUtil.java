@@ -20,7 +20,7 @@ public class JwtUtil {
 
     UserDetailsService userDetailsService;
     private final String secret = "top-secret";
-//    private final long expiration = 50000 * 60 * 60 * 60;
+    private final long expiration = 500000000 * 60 * 60 * 60;
 //     private final long expiration = 5;
     private final long refreshExpiration = 5 * 60 * 60 * 60 * 60;
 
@@ -66,6 +66,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
