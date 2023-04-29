@@ -74,8 +74,8 @@ public class AccountsController {
     }
     // offer from customer
     @PutMapping("/{id}/property/{pid}/offer")
-    public void addCustomerOffer(@PathVariable("id") Long id, @PathVariable("pid") int pid, @RequestBody Offer o) {
-        accountService.addCustomerOffer(id,pid,o);
+    public Offer addCustomerOffer(@PathVariable("id") Long id, @PathVariable("pid") int pid, @RequestBody Offer o) {
+        return accountService.addCustomerOffer(id,pid,o);
     }
     @PutMapping("/{id}/offers/{oid}")
     public void updateOfferStatus(@PathVariable("id") Long id, @RequestBody Offer o, @PathVariable("oid") int oid) {

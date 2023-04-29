@@ -109,10 +109,19 @@ public class AccountService {
 //        return null;
     }
 
-    public void addCustomerOffer(Long customerId, int pid, Offer o) {
+    public Offer addCustomerOffer(Long customerId, int pid, Offer o) {
         Customer c = (Customer) accountRepository.findByAccountId(customerId).get();
+
         Property p = propertyRepo.findById(pid);
         Owner owner = p.getOwner();
+
+//
+//        System.out.println("The Property is ");
+//        System.out.println(p);
+
+//        System.out.println("The Found owner is ");
+//        System.out.println(owner);
+
         Message msg = new Message();
         String offer_msg = o.getMessage().isEmpty() ? "Customer "+ c.getName()+" sent you an offer" : o.getMessage();
         msg.setMsg(offer_msg);
@@ -126,6 +135,7 @@ public class AccountService {
         o.setProperty(p);
         o.setSubmitDate(LocalDate.now());
         offerRepo.save(o);
+        return o;
 
     }
 

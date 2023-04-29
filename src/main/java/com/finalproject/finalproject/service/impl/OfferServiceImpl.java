@@ -49,9 +49,6 @@ public class OfferServiceImpl implements OfferService {
         oldOffer.setMessage(offer.getMessage());
 
 
-
-        //oldOffer.setStatus("PENDING");
-       // oldOffer.setCustomer(customer);
         oldOffer.setSubmitDate(LocalDate.now());
         customer.getOfferList().add(oldOffer);
 

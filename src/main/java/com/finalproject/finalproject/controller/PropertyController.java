@@ -2,6 +2,7 @@ package com.finalproject.finalproject.controller;
 
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.domain.PropertyHistory;
+import com.finalproject.finalproject.domain.Status;
 import com.finalproject.finalproject.dto.input.PropertyCriteriaRequest;
 import com.finalproject.finalproject.repo.PropertyCriteriaSearch;
 import com.finalproject.finalproject.service.PropertyHistoryService;
@@ -93,5 +94,10 @@ public class PropertyController {
        return propertyList;
     }
 
+    @PutMapping("/{id}/updateStatus")
+    @ResponseBody
+    public String activateAccount(@PathVariable("id") int id, @RequestBody Status requestObj) {
+        return propertyService.updateStatus(id,requestObj);
+    }
 
 }

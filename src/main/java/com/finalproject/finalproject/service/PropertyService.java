@@ -2,6 +2,7 @@ package com.finalproject.finalproject.service;
 
 import com.finalproject.finalproject.domain.Property;
 import com.finalproject.finalproject.domain.PropertyHistory;
+import com.finalproject.finalproject.domain.Status;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,4 +24,5 @@ public interface PropertyService {
 
     void update(int id, Property property);
 
+    String updateStatus(int id, Status requestObj);
 }
