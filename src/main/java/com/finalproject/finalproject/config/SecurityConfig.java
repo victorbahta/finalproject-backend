@@ -38,9 +38,6 @@ public class SecurityConfig {
         http
                 .csrf().disable().cors().and()
                 .authorizeHttpRequests()
-//                .requestMatchers("/api/v1/authenticate/**").hasAnyAuthority(roles)
-
-//                .requestMatchers("/users").permitAll()
 
                 .requestMatchers("/**").permitAll()
                 .requestMatchers("/properties").permitAll()
@@ -60,10 +57,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
-//    }
+
 
     @Lazy
     @Bean

@@ -4,7 +4,6 @@ import com.finalproject.finalproject.repo.AccountRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,19 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("userDetailsService")
 @Transactional
 @AllArgsConstructor
-public class AwesomeUserDetailsService implements UserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     @Autowired
     private final AccountRepository userRepo;
 
-//    public AwesomeUserDetailsService(AccountRepository userRepo) {
-//        this.userRepo = userRepo;
-//    }
+
 
     @Override
-    public AwesomeUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepo.findByEmail(username);
-        var userDetails = new AwesomeUserDetails(user);
+        var userDetails = new UserDetails(user);
         System.out.println("when i create it" + userDetails.getAuthorities());
         return userDetails;
     }

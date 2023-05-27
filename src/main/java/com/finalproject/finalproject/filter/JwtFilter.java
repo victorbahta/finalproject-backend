@@ -1,13 +1,11 @@
 package com.finalproject.finalproject.filter;
 
 
-import com.finalproject.finalproject.service.AwesomeUserDetailsService;
+import com.finalproject.finalproject.service.UserDetailsService;
 import com.finalproject.finalproject.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,10 +20,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
-//    private final UserDetailsService userDetailsService;
-    private final AwesomeUserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    public JwtFilter(JwtUtil jwtUtil, AwesomeUserDetailsService userDetailsService) {
+    public JwtFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
@@ -65,11 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
             System.out.println(authentication);
         }
 
-        // THIS WILL BE APPLIED - Better approach
-//            if (token != null && jwtUtil.validateToken(token)) {
-//            Authentication auth = jwtUtil.getAuthentication(token); // TODO need to get the authentication
-//            SecurityContextHolder.getContext().setAuthentication(auth);
-//        }
+
 
         System.out.println("calling the fitler chain");
         filterChain.doFilter(request, response);

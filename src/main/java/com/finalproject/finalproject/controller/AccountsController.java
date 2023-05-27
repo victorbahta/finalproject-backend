@@ -112,7 +112,6 @@ public class AccountsController {
     }
     @GetMapping("/email/{email}")
     public Accounts findUserByEmail( @PathVariable("email") String email) {
-        System.out.println("TRYING TO FETCH EAMIL:" + email);
         return accountService.getUSetByEmail(email);
     }
 }

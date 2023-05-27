@@ -22,7 +22,7 @@ public class AccountService {
     @Autowired
     OfferRepo offerRepo;
     @Autowired
-    private RoleReop roleRepo;
+    private RoleRepo roleRepo;
     @Autowired
     private MessageService msgService;
     @Autowired
